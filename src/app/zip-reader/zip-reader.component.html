@@ -1,0 +1,49 @@
+<div class="container">
+    <h3>Select Zip file and filter file</h3>
+    <div class="sidebyside">
+        <div class="file-input">
+            <label for="zip">Zip file:</label>
+            <input type="file" id="zip" (change)="handleFileInput($event)" accept=".zip" />
+        </div>
+        <div class="file-input">
+            <label for="filter">Filter file:</label>
+            <input type="file" id="filter" (change)="filterFileInput($event)" accept=".csv" />
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <h3>Go on!</h3>
+    <div class="sidebyside">
+        <button (click)="processZip()" [disabled]="!selectedFile || !filterFile">Process Zip</button>
+        <button (click)="downloadData()" [disabled]="!zipService.blob">Download</button>
+
+    </div>
+
+
+</div>
+
+<div class="container" *ngFor="let filename of filenames; let i = index">
+    <div class="json-result">
+        <b>{{ filename }}</b>:
+        <div class="table-container">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th *ngFor="let header of getHeaders(jsonResults[filename])">
+                            {{ header }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of jsonResults[filename]">
+                        <td *ngFor="let header of getHeaders(jsonResults[filename])">
+                            {{ item[header] }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
