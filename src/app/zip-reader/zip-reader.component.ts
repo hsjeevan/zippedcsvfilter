@@ -10,20 +10,23 @@ export class ZipReaderComponent {
   jsonResults: any;
   selectedFile: File | null = null;
   filterFile: File | null = null;
-  filenames: any;
+  filenames: any = [];
 
   constructor(public zipService: ZipService) { }
 
   handleFileInput(event: any): void {
-    this.jsonResults = [];
-    this.zipService.blob = undefined;
+    this.reset();
     this.selectedFile = event.target.files[0];
   }
 
   filterFileInput(event: any): void {
+    this.reset();
+    this.filterFile = event.target.files[0];
+  }
+  reset() {
+    this.filenames = [];
     this.jsonResults = [];
     this.zipService.blob = undefined;
-    this.filterFile = event.target.files[0];
   }
 
   async processZip() {
@@ -43,8 +46,9 @@ export class ZipReaderComponent {
     return Object.keys(innerJson[0]);
   }
 
-  downloadData(){
+  downloadData() {
     this.zipService.download();
+    this.reset();
   }
 
 }

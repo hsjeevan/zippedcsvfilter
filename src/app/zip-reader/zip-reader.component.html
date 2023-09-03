@@ -20,27 +20,82 @@
         <button (click)="downloadData()" [disabled]="!zipService.blob">Download</button>
     </div>
 </div>
-
-<div class="container" *ngFor="let filename of filenames; let i = index">
-    <div class="json-result">
-        <b>{{ filename }}</b>:
-        <div class="table-container">
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        <th *ngFor="let header of getHeaders(jsonResults[filename])">
-                            {{ header }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of jsonResults[filename]">
-                        <td *ngFor="let header of getHeaders(jsonResults[filename])">
-                            {{ item[header] }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="container" *ngIf="!filenames.length; else tables">
+    <h2>Instructions</h2>
+    <!-- 1.combine all the csv files that needs to be filtered in a zip file.
+    2.create a csv file containg the headers that have to be filtered across all the files in zip and populate that needs to be filtered
+    3.select both zip file and filter file on the UI and hit process zip button
+    4.Once the program has finished processing, you will be able to see the filtered csv in tables on the UI
+    5.hit the download button to download the zip file containing the filtered csv files. -->
+    <ol>
+        <li>
+            <p><strong>Combine CSV Files into a Zip Archive:</strong></p>
+            <ul>
+                <li>First, gather all the CSV files that you want to filter.</li>
+                <li>Next, create a zip archive containing these CSV files.</li>
+            </ul>
+        </li>
+        <li>
+            <p><strong>Create a Filter Configuration CSV:</strong></p>
+            <ul>
+                <li>Prepare a CSV file that lists the headers you wish to filter across all the files within the zip
+                    archive.</li>
+                <li>Populate this CSV with the specific filter criteria you want to apply.</li>
+            </ul>
+        </li>
+        <li>
+            <p><strong>Process the Zip Archive:</strong></p>
+            <ul>
+                <li>On the website's user interface (UI), locate and select both the zip archive containing your CSV
+                    files and the filter configuration CSV file.</li>
+                <li>Once both files are selected, click the "Process Zip" button to initiate the filtering process.</li>
+            </ul>
+        </li>
+        <li>
+            <p><strong>Review Filtered Data:</strong></p>
+            <ul>
+                <li>After the program has completed processing, you will be able to view the filtered CSV data in
+                    tabular form on the UI.</li>
+                <li>Examine the results to ensure they meet your filtering requirements.</li>
+            </ul>
+        </li>
+        <li>
+            <p><strong>Download Filtered Data:</strong></p>
+            <ul>
+                <li>If you are satisfied with the filtered data, click the "Download" button to obtain a zip file
+                    containing the filtered CSV files.</li>
+            </ul>
+        </li>
+    </ol>
+    <div class="note">
+        <h3>Note</h3>
+        <p>When you upload files to this site, please be aware that all processing is performed locally on your device,
+            and no data or information related to your session is stored anywhere, including our servers. Additionally,
+            no cookies are stored during your interaction with this site.</p>
     </div>
 </div>
+<ng-template #tables>
+    <div class="container" *ngFor="let filename of filenames; let i = index">
+        <div class="json-result">
+            <b>{{ filename }}</b>:
+            <div class="table-container">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let header of getHeaders(jsonResults[filename])">
+                                {{ header }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of jsonResults[filename]">
+                            <td *ngFor="let header of getHeaders(jsonResults[filename])">
+                                {{ item[header] }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</ng-template>
