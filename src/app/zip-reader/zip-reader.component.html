@@ -18,10 +18,7 @@
     <div class="sidebyside">
         <button (click)="processZip()" [disabled]="!selectedFile || !filterFile">Process Zip</button>
         <button (click)="downloadData()" [disabled]="!zipService.blob">Download</button>
-
     </div>
-
-
 </div>
 
 <div class="container" *ngFor="let filename of filenames; let i = index">

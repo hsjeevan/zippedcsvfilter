@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "jeevan-portfolio": {
+      "hosting": {
+        "zippedcsvfilter": [
+          "zippedcsvfilter"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "jeevan-portfolio"
+  }
+}
