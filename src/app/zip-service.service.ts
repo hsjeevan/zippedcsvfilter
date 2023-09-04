@@ -11,7 +11,7 @@ export class ZipService {
 
   constructor() { }
 
-  async extractAndConvertToJson(zipFile: File, filterObj: any): Promise<any[]> {
+  async extractAndConvertToJson(zipFile: File, filterObj: any, pattern: string): Promise<any[]> {
     this.blob = undefined;
     const zipContent = await this.readFileAsArrayBuffer(zipFile);
     const zip = await JSZip.loadAsync(zipContent);
@@ -19,7 +19,7 @@ export class ZipService {
     let delimiter: string = '';
 
     for (const fileName in zip.files) {
-      if (zip.files[fileName]) {
+      if (zip.files[fileName] && fileName.includes(pattern.trim())) {
         const file = zip.files[fileName];
         if (file.name.endsWith('.csv')) {
           const csvContent = await file.async('string');
@@ -69,7 +69,7 @@ export class ZipService {
       Papa.parse(csvFile, {
         header: true,
         dynamicTyping: true,
-        complete: function (results: Papa.ParseResult<any>) {          
+        complete: function (results: Papa.ParseResult<any>) {
           resolve(results.data);
         },
         error: function (error) {

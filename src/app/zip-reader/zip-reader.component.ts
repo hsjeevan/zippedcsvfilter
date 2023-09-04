@@ -11,7 +11,7 @@ export class ZipReaderComponent {
   selectedFile: File | null = null;
   filterFile: File | null = null;
   filenames: any = [];
-
+  pattern: string = '';
   constructor(public zipService: ZipService) { }
 
   handleFileInput(event: any): void {
@@ -30,10 +30,10 @@ export class ZipReaderComponent {
   }
 
   async processZip() {
-
+   
     if (this.selectedFile && this.filterFile) {
       const filterObj = await this.zipService.extractFilterFields(this.filterFile);      
-      const jsonDataArray = await this.zipService.extractAndConvertToJson(this.selectedFile, filterObj);
+      const jsonDataArray = await this.zipService.extractAndConvertToJson(this.selectedFile, filterObj, this.pattern);
       this.jsonResults = jsonDataArray;
       this.filenames = Object.keys(jsonDataArray)
 

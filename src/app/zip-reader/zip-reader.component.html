@@ -8,6 +8,10 @@
             <label for="zip">Zip file:</label>
             <input type="file" id="zip" (change)="handleFileInput($event)" accept=".zip" />
         </div>
+        <div>
+            <label for="pattern">Input file name pattern to include</label>
+            <input type="text" name="Input file name pattern to include" [(ngModel)]="pattern" id="pattern">
+        </div>
         <div class="file-input">
             <label for="filter">Filter file:</label>
             <input type="file" id="filter" (change)="filterFileInput($event)" accept=".csv" />
@@ -19,8 +23,8 @@
 <div class="container">
     <h3>Go on!</h3>
     <div class="sidebyside">
-        <button (click)="processZip()" [disabled]="!selectedFile || !filterFile">Process Zip</button>
-        <button (click)="downloadData()" [disabled]="!zipService.blob">Download</button>
+        <button class="btn" (click)="processZip()" [disabled]="!selectedFile || !filterFile">Process Zip</button>
+        <button class="btn" (click)="downloadData()" [disabled]="!zipService.blob">Download</button>
     </div>
 </div>
 <div class="container" *ngIf="!filenames.length; else tables">

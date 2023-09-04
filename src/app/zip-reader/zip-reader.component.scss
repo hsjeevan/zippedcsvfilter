@@ -1,11 +1,9 @@
-/* styles.scss */
-.file-input {
-  display: inline-block;
-  /* Make the divs inline blocks */
-  margin-right: 10px;
-  /* Add spacing between the inputs */
-}
 
+label,input{
+  display:flex;
+  flex-direction:column;
+  width: 100%;
+}
 .sidebyside {
   display: flex;
   justify-content: space-between;
@@ -22,7 +20,7 @@
   margin: 20px auto;
 }
 
-.note{
+.note {
   padding: 10px;
   border: 1px solid #ccc;
   background-color: #e6e6e6;
@@ -36,11 +34,11 @@ h3 {
   color: #f4192f;
 }
 
-.file-input {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
+// .file-input {
+//   display: flex;
+//   align-items: center;
+//   margin-bottom: 10px;
+// }
 
 label {
   font-weight: bold;
@@ -110,4 +108,21 @@ pre {
 
 .custom-table tbody tr:hover {
   background-color: #ddd;
+}
+
+@media screen and (max-width: 600px) {
+  .sidebyside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .file-input {
+    display: flex;
+    align-items: center;
+    margin: 1em 0px;
+  }
+  .btn{
+    margin: 1em 0px;
+  }
 }
