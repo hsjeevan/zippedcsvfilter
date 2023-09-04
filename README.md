@@ -1,27 +1,47 @@
 # zippedCsvFilter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+Visit [zippedcsvfilter.hsjeevan.com](https://zippedcsvfilter.hsjeevan.com/)
 
-## Development server
+Note: This version currently supports only pipe delimited csv files.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Instructions for Combining CSV Files into a Zip Archive
 
-## Code scaffolding
+1. **Gather CSV Files:** Collect all the CSV files that you intend to filter.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. **Create a Zip Archive:** Create a zip archive that includes all the CSV files you gathered in the previous step.
 
-## Build
+## Instructions for Creating a Filter Configuration CSV
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. **Prepare Configuration File:** Prepare a CSV file where you list the headers you want to filter across all the files within the zip archive.
 
-## Running unit tests
+2. **Add Filter Criteria:** Populate this CSV with the specific filter criteria you wish to apply to the headers.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Instructions for Processing the Zip Archive
 
-## Running end-to-end tests
+1. **Access Website UI:** Go to the website's user interface (UI).
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+2. **Select Files:** Locate and select both the zip archive containing your CSV files and the filter configuration CSV file.
 
-## Further help
+3. **Initiate Processing:** After selecting both files, click the "Process Zip" button to start the filtering process.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Instructions for Reviewing Filtered Data
+
+1. **Wait for Completion:** Allow the program to finish processing.
+
+2. **View Filtered Data:** Once processing is complete, you can view the filtered CSV data in tabular form on the UI.
+
+3. **Check for Compliance:** Examine the results to ensure they meet your filtering requirements.
+
+## Instructions for Downloading Filtered Data
+
+1. **Satisfaction Check:** If you are satisfied with the filtered data and it meets your criteria, proceed to the next step.
+
+2. **Download Data:** Click the "Download" button to obtain a zip file containing the filtered CSV files.
+
+
+# Instructions for Downloading Filtered Data
+
+1. **Satisfaction Check:** If you are satisfied with the filtered data and it meets your criteria, proceed to the next step.
+
+2. **Download Data:** Click the "Download" button to obtain a zip file containing the filtered CSV files.
+
