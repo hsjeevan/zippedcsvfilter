@@ -32,8 +32,7 @@ export class ZipReaderComponent {
   async processZip() {
 
     if (this.selectedFile && this.filterFile) {
-      const filterObj = await this.zipService.extractFilterFields(this.filterFile);
-
+      const filterObj = await this.zipService.extractFilterFields(this.filterFile);      
       const jsonDataArray = await this.zipService.extractAndConvertToJson(this.selectedFile, filterObj);
       this.jsonResults = jsonDataArray;
       this.filenames = Object.keys(jsonDataArray)

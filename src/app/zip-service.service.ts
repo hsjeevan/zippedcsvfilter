@@ -16,22 +16,24 @@ export class ZipService {
     const zipContent = await this.readFileAsArrayBuffer(zipFile);
     const zip = await JSZip.loadAsync(zipContent);
     const fileObj: any = {};
+    let delimiter: string = '';
 
     for (const fileName in zip.files) {
       if (zip.files[fileName]) {
         const file = zip.files[fileName];
         if (file.name.endsWith('.csv')) {
           const csvContent = await file.async('string');
-          const jsonData = this.convertCsvToJson(csvContent);
-          const filter = this.getFilterObject(jsonData, filterObj);
-          const jsonDataArray = this.applyFilters(jsonData, filter);
+          const result = await this.convertCsvToJson(csvContent);
+          delimiter = result.delimiter;
+          const filter = this.getFilterObject(result.data, filterObj);
+          const jsonDataArray = this.applyFilters(result.data, filter);
           fileObj[fileName] = jsonDataArray;
         }
       }
     }
     this.filename = zipFile.name;
 
-    this.convertAndZipJSONToCSV(fileObj);
+    this.convertAndZipJSONToCSV(fileObj, delimiter);
     return fileObj;
   }
 
@@ -67,7 +69,7 @@ export class ZipService {
       Papa.parse(csvFile, {
         header: true,
         dynamicTyping: true,
-        complete: function (results: Papa.ParseResult<any>) {
+        complete: function (results: Papa.ParseResult<any>) {          
           resolve(results.data);
         },
         error: function (error) {
@@ -78,13 +80,20 @@ export class ZipService {
     });
   }
 
-  private convertCsvToJson(csvContent: string): any[] {
-    const results = Papa.parse(csvContent, {
-      delimiter: '|',
-      header: true
+  private convertCsvToJson(csvContent: string): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      Papa.parse(csvContent, {
+        header: true,
+        complete: function (results: Papa.ParseResult<any>) {
+          const delimiter = results.meta.delimiter;
+          resolve({ data: results.data, delimiter });
+        },
+        error: (error: Error) => {
+          console.error('Error parsing CSV:', error.message);
+          reject(error);
+        }
+      });
     });
-
-    return results.data;
   }
 
   private readFileAsArrayBuffer(file: File): Promise<ArrayBuffer> {
@@ -100,16 +109,17 @@ export class ZipService {
     });
   }
 
-  async convertAndZipJSONToCSV(jsonData: any) {
+  async convertAndZipJSONToCSV(jsonData: any, delimiter: string) {
+
     const zip = new JSZip();
     for (const key in jsonData) {
       if (jsonData[key]) {
         const data = jsonData[key];
         const headers = Object.keys(data[0]);
-        const csv = [headers.map(header => `"${header}"`).join('|')];
+        const csv = [headers.map(header => `"${header}"`).join(delimiter)];
 
         for (const item of data) {
-          const line = headers.map(header => `"${item[header] || ''}"`).join('|');
+          const line = headers.map(header => `"${item[header] || ''}"`).join(delimiter);
           csv.push(line);
         }
 
