@@ -2,8 +2,6 @@
 
 Visit [zippedcsvfilter.hsjeevan.com](https://zippedcsvfilter.hsjeevan.com/)
 
-Note: This version currently supports only pipe delimited csv files.
-
 ## Instructions for Combining CSV Files into a Zip Archive
 
 1. **Gather CSV Files:** Collect all the CSV files that you intend to filter.
