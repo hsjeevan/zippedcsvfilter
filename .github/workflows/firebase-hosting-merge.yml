@@ -18,3 +18,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JEEVAN_PORTFOLIO }}'
           channelId: live
           projectId: jeevan-portfolio
+        env:
+         FIREBASE_CLI_EXPERIMENTS: webframeworks
